@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - Live Chat</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  <style> /* similar styles */ </style>
+</head>
+<body>
+  <h2>অ্যাডমিন চ্যাট প্যানেল</h2>
+  <div id="users"></div>
+  <div id="chat"></div>
+  <input type="text" id="messageInput" placeholder="উত্তর লিখুন...">
+  <button onclick="reply()">পাঠান</button>
+
+  <script>
+    const socket = io('http://localhost:5000');
+    let currentUserId = null;
+
+    socket.emit('join', { userId: 'admin', role: 'admin' });
+
+    socket.on('new-message', (msg) => {
+      if (!currentUserId || currentUserId === msg.userId) {
+        // append to chat
+        console.log('New msg from', msg.userId);
+      }
+      // Update user list
+    });
+
+    function reply() {
+      // similar send logic with role: 'admin'
+    }
+  </script>
+</body>
+</html>
